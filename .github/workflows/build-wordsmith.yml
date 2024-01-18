@@ -11,11 +11,11 @@ jobs:
     strategy:
       matrix:
         include:
-          - image: ghcr.io/lilshad/words-db
+          - image: lilshad/words-db
             directory: ./db
-          - image: ghcr.io/lilshad/words-web
+          - image: lilshad/words-web
             directory: ./web
-          - image: ghcr.io/lilshad/words-api
+          - image: lilshad/words-api
             directory: ./words
     steps:
       - name: Checkout
@@ -40,7 +40,6 @@ jobs:
         with:
           context: ${{ matrix.directory }}
           push: true
-          # file: ${{ matrix.dockerfile }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
