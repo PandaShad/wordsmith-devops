@@ -1,0 +1,14 @@
+version: '3'
+
+name: app-from-hub
+services:
+  web:
+    image: lilshad/words-web:pr-1
+    ports:
+      - "8080:80"
+  
+  words:
+    image: lilshad/words-api:pr-1
+
+  db:
+    image: lilshad/words-db:pr-1
