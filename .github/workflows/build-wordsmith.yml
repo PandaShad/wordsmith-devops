@@ -11,12 +11,12 @@ jobs:
     strategy:
       matrix:
         include:
-          - dockerfile: ./db/Dockerfile
-            image: ghcr.io/lilshad/words-db
-          - dockerfile: ./web/Dockerfile
-            image: ghcr.io/lilshad/words-web
-          - dockerfile: ./words/Dockerfile
-            image: ghcr.io/lilshad/words-api
+          - image: ghcr.io/lilshad/words-db
+            directory: ./db
+          - image: ghcr.io/lilshad/words-web
+            directory: ./web
+          - image: ghcr.io/lilshad/words-api
+            directory: ./words
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
@@ -38,12 +38,9 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v5.1.0
         with:
-          context: .
+          context: ${{ matrix.directory }}
           push: true
-          file: ${{ matrix.dockerfile }}
+          # file: ${{ matrix.dockerfile }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-    
-      
-      
